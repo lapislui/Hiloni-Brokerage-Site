@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Hiloni Broking"
+version = "1.0.0"
+id = "artifacts/hiloni-broking"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24876
+
+[services.development]
+run = "pnpm --filter @workspace/hiloni-broking run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/hiloni-broking", "run", "build" ]
+publicDir = "artifacts/hiloni-broking/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24876"
+BASE_PATH = "/"
